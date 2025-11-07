@@ -4,6 +4,8 @@ import { env } from "hono/adapter";
 import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
 import fs from "fs";
+import page from "./page/translator.js";
+import { parseDocument } from "./app/translate.js";
 
 dotenv.config();
 const app = new Hono();
@@ -17,6 +19,8 @@ app.get("/", (c) => {
   return c.text("Hello Hono!");
 });
 
+app.route("/translate", page);
+
 app.post("/query", async (c) => {
   const { body } = await c.req.parseBody();
   const response = await ai.models.generateContent({
@@ -27,6 +31,12 @@ app.post("/query", async (c) => {
     contents: [body as string],
   });
   return c.json({ response: response.text });
+});
+
+app.post("/parse", async (c) => {
+  const { body } = await c.req.parseBody();
+  const response = await parseDocument(body as string);
+  return c.json(response);
 });
 
 serve(
