@@ -113,8 +113,8 @@ export const translateDocument = async (document: NarouDocument): Promise<NarouD
       pre_content: translatedDoc.pre_content || document.pre_content,
       content: translatedDoc.content || document.content,
       post_content: translatedDoc.post_content || document.post_content,
-      prev_chapter: document.prev_chapter, // URL은 변경하지 않음
-      next_chapter: document.next_chapter, // URL은 변경하지 않음
+      prev_chapter: "/translate" + document.prev_chapter, // URL은 변경하지 않음
+      next_chapter: "/translate" + document.next_chapter, // URL은 변경하지 않음
     };
   } catch (error) {
     // JSON 파싱 실패 시 원본 문서 반환

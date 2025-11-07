@@ -26,29 +26,45 @@ page.get("/:code/:chapter/", async(c) => {
   const translatedDocument = await translateDocument(document);
 
   return c.html(
-  <Layout>
-    <div className="min-h-screen flex items-start bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100">
-      <div className="flex flex-col items-start justify-start p-12 w-full max-w-xl mx-auto whitespace-pre-wrap">
-        <h1 className="text-4xl font-bold mb-6 text-left w-full">{translatedDocument.title ?? "제목"}</h1>
-        <div className="my-6 w-full text-left">
-          <p className="mb-4">{translatedDocument.chapter ?? "챕터"}</p>
-        </div>
-        <div className="my-6 w-full text-left">
-          <p className="mb-4">{translatedDocument.pre_content ?? "본문 전 내용"}</p>
-        </div>
-        <div className="my-6 w-full text-left">
-          <p className="mb-4">{translatedDocument.content ?? "내용"}</p>
-        </div>
-        <div className="my-6 w-full text-left">
-          <p className="mb-4">{translatedDocument.post_content ?? "본문 뒷 내용"}</p>
+    <Layout>
+      <div className="min-h-screen flex items-start bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100">
+        <div className="flex flex-col items-start justify-start p-12 w-full max-w-xl mx-auto whitespace-pre-wrap">
+          <h1 className="text-4xl font-bold mb-6 text-left w-full">
+            {translatedDocument.title ?? "제목"}
+          </h1>
+          <div className="my-6 w-full text-left">
+            <p className="mb-4">{translatedDocument.chapter ?? "챕터"}</p>
+          </div>
+          <div className="my-6 w-full text-left">
+            <p className="mb-4">
+              {translatedDocument.pre_content ?? "본문 전 내용"}
+            </p>
+          </div>
+          <div className="my-6 w-full text-left">
+            <p className="mb-4">{translatedDocument.content ?? "내용"}</p>
+          </div>
+          <div className="my-6 w-full text-left">
+            <p className="mb-4">
+              {translatedDocument.post_content ?? "본문 뒷 내용"}
+            </p>
+          </div>
+          <div className="flex items-center justify-between w-full">
+            <a
+              href={translatedDocument.prev_chapter ?? "#"}
+              className="text-blue-600"
+            >
+              이전 챕터
+            </a>
+            <a
+              href={translatedDocument.next_chapter ?? "#"}
+              className="text-blue-600"
+            >
+              다음 챕터
+            </a>
+          </div>
         </div>
       </div>
-      <div className="flex flex-col items-start justify-start p-12 w-full max-w-xl mx-auto">  
-        <a href={translatedDocument.prev_chapter ?? "#"} className="text-blue-600">이전 챕터</a>
-        <a href={translatedDocument.next_chapter ?? "#"} className="text-blue-600">다음 챕터</a>
-      </div>
-    </div>
-  </Layout>
+    </Layout>
   );
 });
 
